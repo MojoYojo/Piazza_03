@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SnakeW4G2.Models
 {
+    [Serializable]
     public class Wall : Drawer
     {
         public Wall()

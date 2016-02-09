@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnakeW4G2.Models
 {
+    [Serializable]
     public class Snake : Drawer
     {
 
@@ -45,6 +46,9 @@ namespace SnakeW4G2.Models
 
         public void move(int dx, int dy)
         {
+            // Данная строка кода, проверяет следуещее движение змейки
+            // Если вдруг игрок будет двигаться вниз, а в тот момент голова змеи будет направлена вверх, то данный код среагирует на это событие и предовратит движение змей
+            // Если вдруг головка змейки столкнется с его остальной частью тела, то игрок проиграет
             bool preventMotion = false;
              
             if (body.Count > 1)
@@ -146,6 +150,7 @@ namespace SnakeW4G2.Models
                     Game.countOfEatenFood++;
                     Game.points++;
 
+                    //  Если змейка съест 4 еды, то она переходит на следующий уровень, счетчик аннулируется, а достижения увеличиваются и еда вновь появляется в другом месте
                     if (Game.countOfEatenFood == 4)
                     {
                         Game.numberOfLvl++;

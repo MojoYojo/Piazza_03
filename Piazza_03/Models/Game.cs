@@ -8,14 +8,16 @@ namespace SnakeW4G2.Models
 {
     class Game
     {
-        public static int ConsoleHeight = 22;
-        public static int countOfEatenFood = 0, numberOfLvl = 1, points = 0;
+        public static int ConsoleHeight = 22; // Высота задана по умлочанию, потребуется для того, чтобы выводить индикатор очков и текущего уровня
+        public static int countOfEatenFood = 0, numberOfLvl = 1, points = 0; // Индикатор очков для прохождения следуещего уровня, общих очков и текущего уровня
         public static Wall wall = new Wall();
         public static Snake snake = new Snake();
         public static Food food = new Food();
         public static bool GameOver = false;
+        
         public Game()
         {
+            wall.setLevel(1);
             while (!GameOver)
             {
                 Draw();
@@ -34,13 +36,13 @@ namespace SnakeW4G2.Models
                     Save();
                 if (button.Key == ConsoleKey.F2)
                     Resume();
-                if (Game.snake.body[0].x > Console.WindowWidth-1)
+                if (Game.snake.body[0].x > Console.WindowWidth-1) //Если змейка перешла размер ширины экрана, то продолжает свое движение с нулевой позиции по горизонтали
                     Game.snake.body[0].x = 0;
-                if (Game.snake.body[0].x < 0)
+                if (Game.snake.body[0].x < 0) //Если змейка вышла за пределы нулевой позиций по горизонтали, то продолжает свое движение с другого конца экрана по горизонтали
                     Game.snake.body[0].x = Console.WindowWidth - 1;
-                if (Game.snake.body[0].y > ConsoleHeight)
+                if (Game.snake.body[0].y > ConsoleHeight)  //Если змейка вышла за пределы высоты экрана, то продолжает свое движение с верхней начальной позиции
                     Game.snake.body[0].y = 0;
-                if (Game.snake.body[0].y < 0)
+                if (Game.snake.body[0].y < 0)  //Если змейка вышла за пределы экрана по вертикали, то продолжает свое движение с нижней доступной точки экрана
                     Game.snake.body[0].y = ConsoleHeight;
             }
             Console.Clear();
