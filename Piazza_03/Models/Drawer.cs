@@ -16,17 +16,45 @@ namespace SnakeW4G2.Models
         public ConsoleColor color;
         public char sign;
         public List<Point> body = new List<Point>();
+        public bool moved = false;
+        public Point lastPosition;
 
         public Drawer() { }
 
         public void Draw()
         {
             Console.ForegroundColor = color;
-            foreach(Point p in body)
+            if (sign == 'o')
             {
-                Console.SetCursorPosition(p.x, p.y);
+                if(moved)
+                {
+                    Console.SetCursorPosition(lastPosition.x, lastPosition.y);
+                    Console.Write(" ");
+                    foreach (Point p in Game.wall.body)
+                    {
+                        if (p.x == lastPosition.x + 1 && p.y == lastPosition.y)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("#");
+                            break;
+                        }
+                    }
+                }
+                moved = true;
+                Console.SetCursorPosition(body[0].x, body[0].y);
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(sign);
+
             }
+            else
+            {
+                foreach (Point p in body)
+                {
+                    Console.SetCursorPosition(p.x, p.y);
+                    Console.Write(sign);
+                }
+            }
+            
         }
 
         //Проверяет местоположение на существование змеи или стены в случае еды или стены в случае змеи

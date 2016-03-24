@@ -9,7 +9,7 @@ namespace SnakeW4G2.Models
     [Serializable]
     public class Snake : Drawer
     {
-
+        public bool moved = false;
         public Snake()
         {
             color = ConsoleColor.White;
@@ -70,6 +70,8 @@ namespace SnakeW4G2.Models
 
             if (!Game.GameOver && !preventMotion)
             {
+                
+                lastPosition = new Point(body[body.Count - 1].x, body[body.Count - 1].y);
                 for (int i = body.Count - 1; i > 0; i--)
                 {
                     body[i].x = body[i - 1].x;
@@ -147,17 +149,15 @@ namespace SnakeW4G2.Models
 
                     body.Add(coordinatesForNewTail);
                     Game.food.setNewPosition();
+                    Game.food.Draw();
                     Game.countOfEatenFood++;
                     Game.points++;
 
-                    //  Если змейка съест 4 еды, то она переходит на следующий уровень, счетчик аннулируется, а достижения увеличиваются и еда вновь появляется в другом месте
+                    /*//  Если змейка съест 4 еды, то она переходит на следующий уровень, счетчик аннулируется, а достижения увеличиваются и еда вновь появляется в другом месте
                     if (Game.countOfEatenFood == 4)
                     {
-                        Game.numberOfLvl++;
-                        Game.countOfEatenFood = 0;
-                        respawnSnake();
-                        Game.food.setNewPosition();
-                    }
+                        
+                    }*/
 
                 }
             }
